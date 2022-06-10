@@ -1,0 +1,43 @@
+/* --------------------- */
+/* Components */
+/* --------------------- */
+
+.key {
+  padding: 1rem;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.key:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.display {
+  grid-column: 1 / 6;
+  border: 1px solid black;
+  width: 250px;
+  height: 60px;
+  font-size: 2rem;
+  text-align: right;
+}
+
+.equals {
+  grid-column: 5 / 6;
+}
+
+/* --------------------- */
+/* Layout */
+/* --------------------- */
+
+.grid-container {
+  text-align: center;
+  display: grid;
+  padding-inline: 1rem;
+  padding-bottom: 4rem;
+}
+
+.container-calculator {
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(3, 60px);
+  transform: translate(40%, 100%);
+}
