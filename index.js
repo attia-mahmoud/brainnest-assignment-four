@@ -56,6 +56,17 @@ function clear() {
   document.querySelector(".display").innerHTML = displayValue;
 }
 
+function deleteChar() {
+  const lastChar = displayValue.charAt(displayValue.length - 1);
+  if (isNaN(lastChar)) {
+    operator = "";
+  } else {
+    value = value.slice(0, -1);
+  }
+  displayValue = displayValue.slice(0, -1);
+  document.querySelector(".display").innerHTML = displayValue;
+}
+
 function calculate(operands, operator) {
   if (prevResult != null && operands[1] == null) {
     prevResult = operate(operator, +prevResult, +operands[0]);
@@ -68,7 +79,7 @@ function calculate(operands, operator) {
 }
 
 function setOperator(button) {
-  if (value != "") setNumber();
+  if (value) setNumber();
   value = "";
   operator = button.innerHTML;
   if (operands[0] == null) {
@@ -87,6 +98,10 @@ document.querySelector(".clear").addEventListener("click", function () {
 document.querySelector(".equals").addEventListener("click", function () {
   setNumber();
   calculate(operands, operator);
+});
+
+document.querySelector(".delete").addEventListener("click", function () {
+  deleteChar();
 });
 
 characters.forEach((character) => {
