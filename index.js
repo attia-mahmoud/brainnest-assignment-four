@@ -68,9 +68,10 @@ function deleteChar() {
 }
 
 function calculate(operands, operator) {
-  prevResult = operate(operator, +operands[0], +operands[1]);
+  prevResult =
+    Math.trunc(operate(operator, +operands[0], +operands[1]) * 100) / 100;
   clear();
-  document.querySelector(".display").innerHTML = Math.round(prevResult);
+  document.querySelector(".display").innerHTML = prevResult;
   value = "";
 }
 
