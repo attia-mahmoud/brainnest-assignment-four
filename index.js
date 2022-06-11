@@ -41,6 +41,9 @@ function operate(operator, a, b) {
 }
 
 function addChar(a) {
+  if (a === "." && value.includes(".")) {
+    return;
+  }
   displayValue += a;
   document.querySelector(".display").innerHTML = displayValue;
 }
@@ -127,7 +130,9 @@ characters.forEach((character) => {
 
 numbers.forEach((number) => {
   number.addEventListener("click", function () {
-    // setNumber(number);
+    if (number.innerHTML === "." && value.includes(".")) {
+      return;
+    }
     value += number.innerHTML;
   });
 });
