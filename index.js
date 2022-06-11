@@ -7,6 +7,7 @@ let prevResult = null;
 const characters = document.querySelectorAll(".char");
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
+const errorMessage = document.querySelector(".error-message");
 
 function add(a, b) {
   return a + b;
@@ -67,7 +68,16 @@ function deleteChar() {
   document.querySelector(".display").innerHTML = displayValue;
 }
 
+function error() {
+  errorMessage.innerHTML = "You can't do that!";
+  clear();
+}
+
 function calculate(operands, operator) {
+  if (operator == "/" && operands[1] == 0) {
+    error();
+    return;
+  }
   prevResult =
     Math.trunc(operate(operator, +operands[0], +operands[1]) * 100) / 100;
   clear();
@@ -109,6 +119,7 @@ document.querySelector(".delete").addEventListener("click", function () {
 
 characters.forEach((character) => {
   character.addEventListener("click", function () {
+    errorMessage.innerHTML = "";
     addChar(character.innerHTML);
   });
 });
