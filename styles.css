@@ -13,16 +13,14 @@
 }
 
 .display {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   border: 1px solid black;
-  width: 250px;
-  height: 60px;
   font-size: 2rem;
   text-align: right;
 }
 
 .equals {
-  grid-column: 3 / 6;
+  grid-column: 3 / 5;
 }
 
 .clear {
@@ -41,7 +39,7 @@
 }
 
 .container-calculator {
-  grid-template-columns: repeat(5, 50px);
-  grid-template-rows: repeat(3, 60px);
-  transform: translate(40%, 100%);
+  grid-template-columns: repeat(4, 70px);
+  grid-template-rows: repeat(5, 60px);
+  transform: translate(40%, 60%);
 }
