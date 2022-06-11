@@ -74,7 +74,7 @@ function error() {
 }
 
 function calculate(operands, operator) {
-  if (operator == "/" && operands[1] == 0) {
+  if ((operator == "/" && operands[1] == 0) || value === "") {
     error();
     return;
   }
@@ -105,6 +105,7 @@ function setNumber() {
 }
 
 document.querySelector(".clear").addEventListener("click", function () {
+  errorMessage.innerHTML = "";
   clear();
 });
 
