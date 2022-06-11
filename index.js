@@ -1,3 +1,12 @@
+let displayValue = "";
+let operands = [null, null];
+let operator = null;
+let prevResult = null;
+
+const characters = document.querySelectorAll(".char");
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+
 function add(a, b) {
   return a + b;
 }
@@ -29,81 +38,76 @@ function operate(operator, a, b) {
   }
 }
 
-let operation = "";
-
 function addChar(a) {
-  operation += a;
-  document.querySelector(".display").innerHTML = operation;
+  displayValue += a;
+  document.querySelector(".display").innerHTML = displayValue;
+}
+
+function addPrevResult() {
+  displayValue = prevResult + displayValue;
+  document.querySelector(".display").innerHTML = displayValue;
 }
 
 function clear() {
-  operation = "";
-  document.querySelector(".display").innerHTML = operation;
+  displayValue = "";
+  operator = null;
+  operands = [null, null];
+  document.querySelector(".display").innerHTML = displayValue;
 }
 
-function calculate(operation) {
-  let nums = operation
-    .split("+")
-    .join(",")
-    .split("-")
-    .join(",")
-    .split("*")
-    .join(",")
-    .split("/")
-    .join(",")
-    .split(",");
+function calculate(operands, operator) {
+  if (prevResult != null && operands[1] == null) {
+    prevResult = operate(
+      operator,
+      parseFloat(prevResult),
+      parseFloat(operands[0])
+    );
+  } else {
+    prevResult = operate(
+      operator,
+      parseFloat(operands[0]),
+      parseFloat(operands[1])
+    );
+  }
+  clear();
+  document.querySelector(".display").innerHTML = Math.round(prevResult);
+}
 
-  if (operation.indexOf("+") !== -1) {
-    operate("+", nums[0], nums[1]);
-  } else if (operation.indexOf("-") !== -1) {
-    operate("-", nums[0], nums[1]);
-  } else if (operation.indexOf("*") !== -1) {
-    operate("*", nums[0], nums[1]);
-  } else if (operation.indexOf("/") !== -1) {
-    operate("/", nums[0], nums[1]);
+function setOperator(button) {
+  operator = button.innerHTML;
+  if (operands[0] == null) {
+    addPrevResult();
   }
 }
 
-const numbers = document.querySelectorAll(".char");
-
-numbers.forEach.call(numbers, function (number) {
-  number.addEventListener("click", function () {
-    addChar(number.innerHTML);
-  });
-});
+function setNumbers(button) {
+  operands[0] == null
+    ? (operands[0] = button.innerHTML)
+    : (operands[1] = button.innerHTML);
+}
 
 document.querySelector(".clear").addEventListener("click", function () {
   clear();
 });
 
 document.querySelector(".equals").addEventListener("click", function () {
-  calculate(operation);
+  calculate(operands, operator);
 });
 
-function calculate(input) {
-  let nums = input
-    .split("+")
-    .join(",")
-    .split("-")
-    .join(",")
-    .split("*")
-    .join(",")
-    .split("/")
-    .join(",")
-    .split(",");
-  let operator = "";
-  if (input.indexOf("+") !== -1) {
-    operator = "+";
-  } else if (input.indexOf("-") !== -1) {
-    operator = "-";
-  } else if (input.indexOf("*") !== -1) {
-    operator = "*";
-  } else if (input.indexOf("/") !== -1) {
-    operator = "/";
-  }
-  operation = "";
-  document.querySelector(".display").innerHTML = Math.round(
-    operate(operator, parseInt(nums[0]), parseInt(nums[1])),
-    2
-  );
-}
+characters.forEach((character) => {
+  character.addEventListener("click", function () {
+    addChar(character.innerHTML);
+  });
+});
+
+numbers.forEach((number) => {
+  number.addEventListener("click", function () {
+    setNumbers(number);
+  });
+});
+
+operators.forEach((operator) => {
+  operator.addEventListener("click", function () {
+    setOperator(operator);
+  });
+});
