@@ -68,11 +68,7 @@ function deleteChar() {
 }
 
 function calculate(operands, operator) {
-  if (prevResult != null && operands[1] == null) {
-    prevResult = operate(operator, +prevResult, +operands[0]);
-  } else {
-    prevResult = operate(operator, +operands[0], +operands[1]);
-  }
+  prevResult = operate(operator, +operands[0], +operands[1]);
   clear();
   document.querySelector(".display").innerHTML = Math.round(prevResult);
   value = "";
@@ -80,10 +76,16 @@ function calculate(operands, operator) {
 
 function setOperator(button) {
   if (value) setNumber();
+  if (operands[1] != null) {
+    calculate(operands, operator);
+    operator = button.innerHTML;
+    addChar(operator);
+  }
   value = "";
   operator = button.innerHTML;
   if (operands[0] == null) {
     addPrevResult();
+    operands[0] = prevResult;
   }
 }
 
