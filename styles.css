@@ -84,6 +84,6 @@
   background-color: var(--clr-blue-400);
   grid-template-columns: repeat(4, 70px);
   grid-template-rows: repeat(5, 70px);
-  transform: translate(20%, 20%);
+  transform: translate(0%, 20%);
   border-radius: 15px;
 }
